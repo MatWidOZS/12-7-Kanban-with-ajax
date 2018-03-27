@@ -1,12 +1,12 @@
 // OGÓLNA FUNKCJA
-function randomString() {
+/*function randomString() {
 	var chars = '0123456789abcdefghiklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXTZ'.split();
 	var str = '', i;
 	for (i = 0; i < 10; i++) {
 	  str += chars[Math.floor(Math.random() * chars.length)];
 	}
 	return str;
-}
+}*/  //Niepotrzebne - ID tworzone przez serwer
 
 // TWORZENIE NOWYCH EGZEMPLARZY KOLUMN
 var todoColumn = new Column('Do zrobienia');
@@ -25,3 +25,41 @@ var card2 = new Card('stworzyc tablice kanban');
 // DODAWANIE KART DO KOLUMN
 todoColumn.createCard(card1);
 doingColumn.createCard(card2);
+
+//Zmienne do komunikacji z serwerem
+var baseUrl = 'https://kodilla.com/pl/bootcamp-api';
+var myHeaders = {
+	'X-Client-Id': 'X-Client-Id',
+	'X-Auth-Token': 'X-Auth-Token'
+};
+
+//Dodawanie nagłówków do zapytań
+$.ajaxSetup({
+	headers: myHeaders
+});
+
+//Odpytanie serwera o zasób tablicy
+$.ajax({
+	url: baseUrl + '/board',
+	method: 'GET',
+	success: function(response) {
+		setupColumns(response.columns);
+	}
+});
+
+//Tworzenie kolumn i podpinanie ich do tablicy
+function setupColumns(columns) {
+	columns.forEach(function (column) {
+		var col = new Column(column.id, column.name);
+		board.createColumn(col);
+		setupCards(col, column.cards);
+	});
+}
+
+//Ustawianie kart w odpowiednie kolumny
+function setupCards(col, cards) {
+	cards.forEach(function (card) {
+		var cardObj = new Card(card.id, card.name, card.bootcamp_kanban_column_id);
+		col.createCard(cardObj);
+	});
+}
