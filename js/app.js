@@ -8,7 +8,7 @@
 	return str;
 }*/  //Niepotrzebne - ID tworzone przez serwer
 
-// TWORZENIE NOWYCH EGZEMPLARZY KOLUMN
+/*// TWORZENIE NOWYCH EGZEMPLARZY KOLUMN
 var todoColumn = new Column('Do zrobienia');
 var doingColumn = new Column('W trakcie');
 var doneColumn = new Column('Skończone');
@@ -25,12 +25,13 @@ var card2 = new Card('stworzyc tablice kanban');
 // DODAWANIE KART DO KOLUMN
 todoColumn.createCard(card1);
 doingColumn.createCard(card2);
+*/
 
 //Zmienne do komunikacji z serwerem
 var baseUrl = 'https://kodilla.com/pl/bootcamp-api';
 var myHeaders = {
-	'X-Client-Id': 'X-Client-Id',
-	'X-Auth-Token': 'X-Auth-Token'
+	'X-Client-Id': '2816',
+	'X-Auth-Token': '62d048c875f53ff6b9e4dec110260925'
 };
 
 //Dodawanie nagłówków do zapytań
